@@ -4,6 +4,7 @@ const cors = require("cors")
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const userRoute = require("./routes/userRoute")
+const jobRoute = require("./routes/jobRoute")
 const errorHandler = require("./middleware/errorMiddleware")
 
 // initialize our app
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended: false}))
 
 // Route middleware
 app.use("/api/users", userRoute)
+app.use("/api/jobs", jobRoute)
 
 // create Route
 app.get("/", (req,res) => {
