@@ -3,18 +3,18 @@ const mongoose = require("mongoose")
 const jobSchema = mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        // required:true,
         ref: "user"
     },
-    company_name: {
+    cname: {
         type: String,
         required: [true, 'please enter company name']
     },
-    company_website:{
+    website:{
         type: String,
         required: [true, 'please enter url']
     },
-    job_title:{
+    title:{
         type: String,
         required: [true, 'please enter jon  title']
     },
@@ -23,11 +23,7 @@ const jobSchema = mongoose.Schema({
         required: [true, 'please select industry'],
         enum:['FinTech','Agriculture', 'Helath', 'Others']
     },
-    company_website:{
-        type: String,
-        required:[true, 'please enter company website']
-    },
-    job_location: {
+    location: {
         type: String,
         require: true
     },
@@ -44,15 +40,15 @@ const jobSchema = mongoose.Schema({
         type: String,
         required: [true, 'please enter date']
     },
-    job_link: {
+    link: {
         type: String,
         required: [true, 'Please enter link']
     },
-    job_req: {
+    requirements: {
         type: String,
         required: [true, 'please enter job requirement']
     },
-    job_desc: {
+    description: {
         type: String,
         required: [true, 'please enter job description']
     }
