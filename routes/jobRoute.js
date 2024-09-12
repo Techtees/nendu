@@ -7,5 +7,6 @@ const protect = require('../middleware/authMiddleware.')
 
 
 router.post('/create', protect, createJob)
+route.get('/alljobs', protect, )
 
 module.exports = router
