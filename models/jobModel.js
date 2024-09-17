@@ -1,10 +1,10 @@
 const mongoose = require("mongoose")
 
 const jobSchema = mongoose.Schema({
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         // required:true,
-        ref: "user"
+        ref: "User"
     },
     cname: {
         type: String,
@@ -53,7 +53,10 @@ const jobSchema = mongoose.Schema({
         required: [true, 'please enter job description']
     }
     
-})
+},{
+    timestamps: true
+}
+)
 
 const Job = mongoose.model("Job", jobSchema)
 
