@@ -32,25 +32,104 @@ const createJob = asyncHandler(
     }
 )
 
-const getJob = asyncHandler(
+const getJobs = asyncHandler(
     async(req, res) => {
 
-        const user = await User.findById(req.user._id)
-
-        if(!user){
-            res.status(400)
-            throw new Error("User not found")
-        }
-        console.log("Fetching jobs for user:", req.user._id);
-
-        const jobs = await Job.find()
+        const jobs = await Job.find({user: req.user.id})
         console.log("Jobs found:", jobs);
 
         res.status(200).json(jobs)
     }
 )
 
+const getJob = asyncHandler(
+    async (req, res)  => {
+        const job = await Job.findById(req.params.id)
+
+        if(!job) {
+            res.status(404)
+            throw new Error("Job not found")
+        }
+
+        res.status(200).json(job)
+
+    }
+
+
+)
+
+const deleteJob = asyncHandler(
+    async(req, res) => {
+      const job = await Job.findById(req.params.id)
+
+    if(!job) {
+        res.status(404)
+        throw new Error("Job not found")
+    }
+
+    if(job.user.toString() !== req.user.id){
+        res.status(401)
+        throw new Error("User not authorized")
+    }
+
+    await job.deleteOne()
+
+    res.status(200).json(job);
+    }
+)
+
+const updateJob = asyncHandler(
+    async(req, res) =>{
+
+        const {cname, website, title, industry, location, experience, qualification, deadline, link, requirements, description} = req.body
+
+        const {id} = req.params
+
+        const job = await Job.findById(id)
+
+        if(!job){
+            res.status(404)
+            throw new Error("Job not found")
+        }
+
+        if(job.user.toString() !== req.user.id){
+            res.status(401)
+            throw new Error("User not authorized")
+        }
+
+        const updatedJob = await Job.findByIdAndUpdate(
+            {_id: id},
+            {
+                cname,
+                website,
+                title,
+                industry,
+                location,
+                experience,
+                qualification,
+                deadline,
+                link,
+                requirements,
+                description
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        )
+
+
+        res.status(201).json(updatedJob)
+
+
+
+    }
+)
+
 module.exports = {
     createJob,
-    getJob
+    getJobs,
+    getJob,
+    deleteJob,
+    updateJob
 }
