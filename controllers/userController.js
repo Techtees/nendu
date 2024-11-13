@@ -70,9 +70,9 @@ const loginUser = asyncHandler(
         const token = generateToken(user._id)
 
         if(user && (password == passwordCheck)){
-            const {name, email} = user
+            const {name, email, isAdmin,} = user
             res.status(200).json({
-                name, email, token
+                name, email, isAdmin,token
             })
 
         } else {
