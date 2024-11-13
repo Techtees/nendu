@@ -44,9 +44,8 @@ const jobSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please enter link']
     },
-    requirements: {
+    salary : {
         type: String,
-        required: [true, 'please enter job requirement']
     },
     description: {
         type: String,
